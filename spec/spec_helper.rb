@@ -5,11 +5,13 @@ $:.unshift((ROOT + 'spec').to_s)
 
 require 'bundler/setup'
 require 'bacon'
+require 'mocha-on-bacon'
 require 'pretty_bacon'
 require 'cocoapods'
 
 require 'cocoapods_plugin'
 
+require 'spec_helper/command'         # Allows to run Pod commands and returns their output.
 require 'spec_helper/fixture'         # Provides access to the fixtures and unpacks them if needed.
 require 'spec_helper/temporary_repos' # Allows to create and modify temporary spec repositories.
 require 'spec_helper/user_interface'  # Redirects UI to UI.output & UI.warnings.
@@ -19,7 +21,7 @@ module Bacon
   class Context
     include Pod::Config::Mixin
     include SpecHelper::Fixture
-    #include SpecHelper::Command
+    include SpecHelper::Command
 
     def skip_xcodebuild?
       ENV['SKIP_XCODEBUILD']

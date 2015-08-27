@@ -17,9 +17,7 @@ module Pod
     # @todo Create a PR to add your plugin to CocoaPods/cocoapods.org
     #       in the `plugins.json` file, once your plugin is released.
     #
-     UI.puts "under class Command"
     class Search < Command
-      UI.puts "under class Search"
       self.summary = 'Search for pods.'
 
       self.description = <<-DESC
@@ -72,7 +70,6 @@ module Pod
       end
 
       def run
-        UI.puts "run local cocoapods-search" #for debuging purpose
         #UI.puts "Add your implementation for the cocoapods-search plugin in #{__FILE__}"
         ensure_master_spec_repo_exists!
         if @web

@@ -64,7 +64,7 @@ module Pod
           ('on:ios' if @supported_on_ios),
           @query,
         ].compact.flatten.join(' ')
-        url = "http://cocoapods.org/?q=#{CGI.escape(query_parameter).gsub('+', '%20')}"
+        url = "https://cocoapods.org/?q=#{CGI.escape(query_parameter).gsub('+', '%20')}"
         UI.puts("Opening #{url}")
         open!(url)
       end

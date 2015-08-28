@@ -14,7 +14,6 @@ module Pod
       it 'registers it self' do
         Command.parse(%w{ search }).should.be.instance_of Command::Search
       end
-    
 
       it 'runs with correct parameters' do
         lambda { run_command('search', 'JSON') }.should.not.raise
@@ -81,35 +80,35 @@ module Pod
       extend SpecHelper::TemporaryRepos
 
       it 'searches with invalid regex' do
-        Command::Search.any_instance.expects(:open!).with('http://cocoapods.org/?q=NSAttributedString%2BCCLFormat')
+        Command::Search.any_instance.expects(:open!).with('https://cocoapods.org/?q=NSAttributedString%2BCCLFormat')
         run_command('search', '--web', 'NSAttributedString+CCLFormat')
       end
 
       it 'should url encode search queries' do
-        Command::Search.any_instance.expects(:open!).with('http://cocoapods.org/?q=NSAttributedString%2BCCLFormat')
+        Command::Search.any_instance.expects(:open!).with('https://cocoapods.org/?q=NSAttributedString%2BCCLFormat')
         run_command('search', '--web', 'NSAttributedString+CCLFormat')
       end
 
       it 'searches the web via the open! command' do
-        Command::Search.any_instance.expects(:open!).with('http://cocoapods.org/?q=bananalib')
+        Command::Search.any_instance.expects(:open!).with('https://cocoapods.org/?q=bananalib')
         run_command('search', '--web', 'bananalib')
       end
 
       it 'includes option --osx correctly' do
-        Command::Search.any_instance.expects(:open!).with('http://cocoapods.org/?q=on%3Aosx%20bananalib')
+        Command::Search.any_instance.expects(:open!).with('https://cocoapods.org/?q=on%3Aosx%20bananalib')
         run_command('search', '--web', '--osx', 'bananalib')
       end
 
       it 'includes option --ios correctly' do
-        Command::Search.any_instance.expects(:open!).with('http://cocoapods.org/?q=on%3Aios%20bananalib')
+        Command::Search.any_instance.expects(:open!).with('https://cocoapods.org/?q=on%3Aios%20bananalib')
         run_command('search', '--web', '--ios', 'bananalib')
       end
 
       it 'does not matter in which order the ios/osx options are set' do
-        Command::Search.any_instance.expects(:open!).with('http://cocoapods.org/?q=on%3Aosx%20on%3Aios%20bananalib')
+        Command::Search.any_instance.expects(:open!).with('https://cocoapods.org/?q=on%3Aosx%20on%3Aios%20bananalib')
         run_command('search', '--web', '--ios', '--osx', 'bananalib')
 
-        Command::Search.any_instance.expects(:open!).with('http://cocoapods.org/?q=on%3Aosx%20on%3Aios%20bananalib')
+        Command::Search.any_instance.expects(:open!).with('https://cocoapods.org/?q=on%3Aosx%20on%3Aios%20bananalib')
         run_command('search', '--web', '--osx', '--ios', 'bananalib')
       end
     end

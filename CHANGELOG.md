@@ -6,7 +6,6 @@
 
 Original creators: 
 [Eloy Durán](https://github.com/alloy)
-
 [Fabio Pelosin](https://github.com/fabiopelosin)
 
 Extractor:

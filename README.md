@@ -1,5 +1,7 @@
 # cocoapods-search
 
+[![Build Status](https://travis-ci.org/CocoaPods/cocoapods-search.svg)](https://travis-ci.org/CocoaPods/cocoapods-search)
+
 CocoaPods plugin that allows you to search your pod spec repository for specific pods matching a query.
 
 ## Installation

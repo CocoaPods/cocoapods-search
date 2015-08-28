@@ -6,8 +6,8 @@ require 'cocoapods-search/gem_version.rb'
 Gem::Specification.new do |spec|
   spec.name          = 'cocoapods-search'
   spec.version       = CocoapodsSearch::VERSION
-  spec.authors       = ['Emma Koszinowski']
-  spec.email         = ['emkosz@gmail.com']
+  spec.authors       = ['Eloy Durán','Fabio Pelosin','Emma Koszinowski']
+  spec.email         = ['eloy.de.enige@gmail.com','fabiopelosin@gmail.com','emkosz@gmail.com']
   spec.description   = %q{Search for pods.}
   spec.summary       = %q{Searches for pods, ignoring case, whose name matches `QUERY`. If the
                       `--full` option is specified, this will also search in the summary and

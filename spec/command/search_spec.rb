@@ -49,6 +49,12 @@ module Pod
         output.should.not.include? 'BananaLib'
       end
 
+      it 'restricts the search to Pods supported on Watch OS' do
+        output = run_command('search', '', '--watchos')
+        output.should.include? 'Realm'
+        output.should.not.include? 'BananaLib'
+      end
+
       it 'outputs with the silent parameter' do
         output = run_command('search', 'BananaLib', '--silent')
         output.should.include? 'BananaLib'
@@ -114,4 +120,3 @@ module Pod
     end
   end
 end
-

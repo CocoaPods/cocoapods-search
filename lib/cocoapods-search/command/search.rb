@@ -15,12 +15,13 @@ module Pod
 
       def self.options
         [
-          ['--regex', 'Interpret the `QUERY` as a regular expression'],
-          ['--full',  'Search by name, summary, and description'],
-          ['--stats', 'Show additional stats (like GitHub watchers and forks)'],
-          ['--ios',   'Restricts the search to Pods supported on iOS'],
-          ['--osx',   'Restricts the search to Pods supported on OS X'],
-          ['--web',   'Searches on cocoapods.org'],
+          ['--regex',   'Interpret the `QUERY` as a regular expression'],
+          ['--full',    'Search by name, summary, and description'],
+          ['--stats',   'Show additional stats (like GitHub watchers and forks)'],
+          ['--ios',     'Restricts the search to Pods supported on iOS'],
+          ['--osx',     'Restricts the search to Pods supported on OS X'],
+          ['--watchos', 'Restricts the search to Pods supported on Watch OS'],
+          ['--web',     'Searches on cocoapods.org'],
         ].concat(super.reject { |option, _| option == '--silent' })
       end 
 
@@ -30,6 +31,7 @@ module Pod
         @stats = argv.flag?('stats')
         @supported_on_ios = argv.flag?('ios')
         @supported_on_osx = argv.flag?('osx')
+        @supported_on_watchos = argv.flag?('watchos')
         @web = argv.flag?('web')
         @query = argv.arguments! unless argv.arguments.empty?
         config.silent = false
@@ -62,6 +64,7 @@ module Pod
         query_parameter = [
           ('on:osx' if @supported_on_osx),
           ('on:ios' if @supported_on_ios),
+          ('on:watchos' if @supported_on_watchos),
           @query,
         ].compact.flatten.join(' ')
         url = "https://cocoapods.org/?q=#{CGI.escape(query_parameter).gsub('+', '%20')}"
@@ -79,6 +82,9 @@ module Pod
         end
         if @supported_on_osx
           sets.reject! { |set| !set.specification.available_platforms.map(&:name).include?(:osx) }
+        end
+        if @supported_on_watchos
+          sets.reject! { |set| !set.specification.available_platforms.map(&:name).include?(:watchos) }
         end
 
        sets.each do |set|

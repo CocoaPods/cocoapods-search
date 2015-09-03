@@ -1,6 +1,6 @@
 # Cocoapods::Search Changelog
 
-## 0.0.1 (2011-09-17) 
+## 0.0.1 (2015-09-03)
 
 * Initial implementation. This version is an extraction from [CocoaPods](https://github.com/CocoaPods/CocoaPods). 
 

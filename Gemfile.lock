@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cocoapods-search (0.0.1)
+    cocoapods-search (0.1.0)
 
 GEM
   remote: https://rubygems.org/

@@ -2,12 +2,8 @@
 
 [![Build Status](https://travis-ci.org/CocoaPods/cocoapods-search.svg)](https://travis-ci.org/CocoaPods/cocoapods-search)
 
-
-
 CocoaPods plugin that allows you to search multiple pod spec repositories for specific pods matching a query. This plugin is a defalult plugin required in CocoaPods.
  
-
-
 ## Installation
 
     $ gem install cocoapods-search
@@ -16,25 +12,24 @@ CocoaPods plugin that allows you to search multiple pod spec repositories for sp
 
     $ pod search QUERY
 
-
 ### Options
 
 You can use the following options with the search command.
 
-| Flag      	| Description |
-|-----------	|-------------|
-| `--regex` 	| Interpret the `QUERY` as a regular expression |
-| `--full`  	| Search by name, summary, and description |
-| `--stats` 	| Show additional stats (like GitHub watchers and forks) |
-| `--ios`   	| Restricts the search to Pods supported on iOS |
-| `--osx`   	| Restricts the search to Pods supported on OS X |
+| Flag          | Description |
+|-----------    |-------------|
+| `--regex`     | Interpret the `QUERY` as a regular expression |
+| `--full`      | Search by name, summary, and description |
+| `--stats`     | Show additional stats (like GitHub watchers and forks) |
+| `--ios`       | Restricts the search to Pods supported on iOS |
+| `--osx`       | Restricts the search to Pods supported on OS X |
 | `--watchos`   | Restricts the seach to Pods supported on Watch OS |
-| `--web`   	| Opens a new search on cocoapods.org |
+| `--web`       | Opens a new search on cocoapods.org |
 
 
 e.g 
 
-$ pod search networkin 
+	$ pod search networkin 
 
 
 -> ACSNetworking (0.0.1)
@@ -71,7 +66,7 @@ $ pod search networkin
 
 
 
-$ pod search video --osx
+	$ pod search video --osx
 
 $ -> AMCoreAudio (2.0.7)
    AMCoreAudio is a Swift wrapper for Apple's CoreAudio framework
@@ -101,5 +96,3 @@ $ -> AMCoreAudio (2.0.7)
    - Homepage: http://audiokit.io/
    - Source:   https://github.com/audiokit/AudioKit.git
    - Versions: 2.1.1, 2.0.1, 2.0, 1.3, 1.2-01, 1.2 [master repo]
-
-

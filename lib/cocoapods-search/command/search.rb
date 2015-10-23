@@ -73,8 +73,9 @@ module Pod
       end
 
       def local_search
-        query_regex = @query.join(' ').strip
-        query_regex = Regexp.escape(query_regex) unless @use_regex
+        query_regex = @query.reduce('') { |result, q|
+          result + ' ' + (@use_regex ? q : Regexp.escape(q))
+        }.strip
 
         sets = SourcesManager.search_by_name(query_regex, @full_text_search)
         if @supported_on_ios

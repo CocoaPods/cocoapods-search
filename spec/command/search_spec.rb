@@ -32,7 +32,12 @@ module Pod
       end
 
       it 'searches for a pod with name, summary, or description matching the given query ignoring case' do
-        output = run_command('search', 'Engelhart', '--full')
+        output = run_command('search', 'engelhart', '--full')
+        output.should.include? 'JSONKit'
+      end
+
+      it 'searches for a pod with name, summary, or description matching the given multi-word query ignoring case' do
+        output = run_command('search', 'very', 'high', 'performance', '--full')
         output.should.include? 'JSONKit'
       end
 

@@ -16,7 +16,7 @@ module Pod
       def self.options
         [
           ['--regex',   'Interpret the `QUERY` as a regular expression'],
-          ['--full',    'Search by name, summary, description and authors'],
+          ['--full',    'Search by name, summary, description, and authors'],
           ['--stats',   'Show additional stats (like GitHub watchers and forks)'],
           ['--ios',     'Restricts the search to Pods supported on iOS'],
           ['--osx',     'Restricts the search to Pods supported on OS X'],

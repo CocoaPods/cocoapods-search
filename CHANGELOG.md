@@ -1,7 +1,16 @@
 # Cocoapods::Search Changelog
 
+## Master
+
+* Perform regexp escape on individual query words before joining them  
+  [Muhammed Yavuz Nuzumlalı](https://github.com/manuyavuz)
+  [#8](https://github.com/CocoaPods/cocoapods-search/issues/8)
+
+
 ## 0.1.0 (2015-09-03)
+
 * Version number must not collide with old gem called cocoapods-search 0.0.7
+
 
 ## 0.0.1 (2015-09-03)
 

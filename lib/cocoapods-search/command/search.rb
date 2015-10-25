@@ -16,7 +16,7 @@ module Pod
       def self.options
         [
           ['--regex',   'Interpret the `QUERY` as a regular expression'],
-          ['--full',    'Search by name, summary, and description'],
+          ['--full',    'Search by name, summary, description, and authors'],
           ['--stats',   'Show additional stats (like GitHub watchers and forks)'],
           ['--ios',     'Restricts the search to Pods supported on iOS'],
           ['--osx',     'Restricts the search to Pods supported on OS X'],
@@ -73,8 +73,9 @@ module Pod
       end
 
       def local_search
-        query_regex = @query.join(' ').strip
-        query_regex = Regexp.escape(query_regex) unless @use_regex
+        query_regex = @query.reduce([]) { |result, q|
+          result << (@use_regex ? q : Regexp.escape(q))
+        }.join(' ').strip
 
         sets = SourcesManager.search_by_name(query_regex, @full_text_search)
         if @supported_on_ios

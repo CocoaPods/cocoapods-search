@@ -132,16 +132,16 @@ module Pod
       end
 
       it 'includes any new platform option correctly' do
-        Command::Search.any_instance.stubs(:all_platforms).returns(%w(ios osx watchos tvos whateveros))
+        Platform.stubs(:all).returns([Platform.ios, Platform.tvos, Platform.new('whateveros')])
         Command::Search.any_instance.expects(:open!).with('https://cocoapods.org/?q=on%3Awhateveros%20bananalib')
         run_command('search', '--web', '--whateveros', 'bananalib')
       end
 
       it 'does not matter in which order the ios/osx options are set' do
-        Command::Search.any_instance.expects(:open!).with('https://cocoapods.org/?q=on%3Aosx%20on%3Aios%20bananalib')
+        Command::Search.any_instance.expects(:open!).with('https://cocoapods.org/?q=on%3Aios%20on%3Aosx%20bananalib')
         run_command('search', '--web', '--ios', '--osx', 'bananalib')
 
-        Command::Search.any_instance.expects(:open!).with('https://cocoapods.org/?q=on%3Aosx%20on%3Aios%20bananalib')
+        Command::Search.any_instance.expects(:open!).with('https://cocoapods.org/?q=on%3Aios%20on%3Aosx%20bananalib')
         run_command('search', '--web', '--osx', '--ios', 'bananalib')
       end
     end

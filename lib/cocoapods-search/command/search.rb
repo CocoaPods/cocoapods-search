@@ -13,16 +13,6 @@ module Pod
         CLAide::Argument.new('QUERY', true),
       ]
 
-      def self.all_platforms
-        Specification::PLATFORMS.map do |platform|
-          platform.to_s
-        end
-      end
-
-      def all_platforms
-        self.class.all_platforms
-      end
-
       def self.options
         options = [
           ['--regex',   'Interpret the `QUERY` as a regular expression'],
@@ -30,8 +20,8 @@ module Pod
           ['--stats',   'Show additional stats (like GitHub watchers and forks)'],
           ['--web',     'Searches on cocoapods.org'],
         ]
-        options += all_platforms.map do |platform|
-          ["--#{platform}",     "Restricts the search to Pods supported on #{platform}"]
+        options += Platform.all.map do |platform|
+          ["--#{platform.name.to_s}",     "Restricts the search to Pods supported on #{Platform.string_name(platform.to_sym)}"]
         end
         options.concat(super.reject { |option, _| option == '--silent' })
       end 
@@ -41,8 +31,8 @@ module Pod
         @full_text_search = argv.flag?('full')
         @stats = argv.flag?('stats')
         @web = argv.flag?('web')
-        @platform_filters = all_platforms.map do |platform|
-          argv.flag?(platform) ? platform.to_sym : nil
+        @platform_filters = Platform.all.map do |platform|
+          argv.flag?(platform.name.to_s) ? platform.to_sym : nil
         end.compact
         @query = argv.arguments! unless argv.arguments.empty?
         config.silent = false

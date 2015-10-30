@@ -60,6 +60,12 @@ module Pod
         output.should.not.include? 'BananaLib'
       end
 
+      it 'restricts the search to Pods supported on tvOS' do
+        output = run_command('search', '', '--tvos')
+        output.should.include? 'monkey'
+        output.should.not.include? 'BananaLib'
+      end
+
       it 'outputs with the silent parameter' do
         output = run_command('search', 'BananaLib', '--silent')
         output.should.include? 'BananaLib'
@@ -113,6 +119,22 @@ module Pod
       it 'includes option --ios correctly' do
         Command::Search.any_instance.expects(:open!).with('https://cocoapods.org/?q=on%3Aios%20bananalib')
         run_command('search', '--web', '--ios', 'bananalib')
+      end
+
+      it 'includes option --watchos correctly' do
+        Command::Search.any_instance.expects(:open!).with('https://cocoapods.org/?q=on%3Awatchos%20bananalib')
+        run_command('search', '--web', '--watchos', 'bananalib')
+      end
+
+      it 'includes option --tvos correctly' do
+        Command::Search.any_instance.expects(:open!).with('https://cocoapods.org/?q=on%3Atvos%20bananalib')
+        run_command('search', '--web', '--tvos', 'bananalib')
+      end
+
+      it 'includes any new platform option correctly' do
+        Command::Search.any_instance.stubs(:all_platforms).returns(%w(ios osx watchos tvos whateveros))
+        Command::Search.any_instance.expects(:open!).with('https://cocoapods.org/?q=on%3Awhateveros%20bananalib')
+        run_command('search', '--web', '--whateveros', 'bananalib')
       end
 
       it 'does not matter in which order the ios/osx options are set' do

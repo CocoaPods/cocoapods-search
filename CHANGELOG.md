@@ -2,6 +2,12 @@
 
 ## Master
 
+##### Enhancements
+
+* Add support for tvOS and any possible future platforms  
+  [Muhammed Yavuz Nuzumlalı](https://github.com/manuyavuz)
+  [#11](https://github.com/CocoaPods/cocoapods-search/issues/11)
+
 * Perform regexp escape on individual query words before joining them  
   [Muhammed Yavuz Nuzumlalı](https://github.com/manuyavuz)
   [#8](https://github.com/CocoaPods/cocoapods-search/issues/8)

@@ -13,26 +13,37 @@ module Pod
         CLAide::Argument.new('QUERY', true),
       ]
 
+      def self.all_platforms
+        Specification::PLATFORMS.map do |platform|
+          platform.to_s
+        end
+      end
+
+      def all_platforms
+        self.class.all_platforms
+      end
+
       def self.options
-        [
+        options = [
           ['--regex',   'Interpret the `QUERY` as a regular expression'],
           ['--full',    'Search by name, summary, description, and authors'],
           ['--stats',   'Show additional stats (like GitHub watchers and forks)'],
-          ['--ios',     'Restricts the search to Pods supported on iOS'],
-          ['--osx',     'Restricts the search to Pods supported on OS X'],
-          ['--watchos', 'Restricts the search to Pods supported on Watch OS'],
           ['--web',     'Searches on cocoapods.org'],
-        ].concat(super.reject { |option, _| option == '--silent' })
+        ]
+        options += all_platforms.map do |platform|
+          ["--#{platform}",     "Restricts the search to Pods supported on #{platform}"]
+        end
+        options.concat(super.reject { |option, _| option == '--silent' })
       end 
 
       def initialize(argv)
         @use_regex = argv.flag?('regex')
         @full_text_search = argv.flag?('full')
         @stats = argv.flag?('stats')
-        @supported_on_ios = argv.flag?('ios')
-        @supported_on_osx = argv.flag?('osx')
-        @supported_on_watchos = argv.flag?('watchos')
         @web = argv.flag?('web')
+        @platform_filters = all_platforms.map do |platform|
+          argv.flag?(platform) ? platform.to_sym : nil
+        end.compact
         @query = argv.arguments! unless argv.arguments.empty?
         config.silent = false
         super
@@ -61,12 +72,11 @@ module Pod
       end
 
       def web_search
-        query_parameter = [
-          ('on:osx' if @supported_on_osx),
-          ('on:ios' if @supported_on_ios),
-          ('on:watchos' if @supported_on_watchos),
-          @query,
-        ].compact.flatten.join(' ')
+        queries = @platform_filters.map do |platform|
+          "on:#{platform}"
+        end
+        queries += @query
+        query_parameter = queries.compact.flatten.join(' ')
         url = "https://cocoapods.org/?q=#{CGI.escape(query_parameter).gsub('+', '%20')}"
         UI.puts("Opening #{url}")
         open!(url)
@@ -78,17 +88,12 @@ module Pod
         }.join(' ').strip
 
         sets = SourcesManager.search_by_name(query_regex, @full_text_search)
-        if @supported_on_ios
-          sets.reject! { |set| !set.specification.available_platforms.map(&:name).include?(:ios) }
-        end
-        if @supported_on_osx
-          sets.reject! { |set| !set.specification.available_platforms.map(&:name).include?(:osx) }
-        end
-        if @supported_on_watchos
-          sets.reject! { |set| !set.specification.available_platforms.map(&:name).include?(:watchos) }
+
+        @platform_filters.each do |platform|
+          sets.reject! { |set| !set.specification.available_platforms.map(&:name).include?(platform) }
         end
 
-       sets.each do |set|
+        sets.each do |set|
           begin
             if @stats
               UI.pod(set, :stats)

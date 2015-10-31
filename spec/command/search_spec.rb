@@ -17,7 +17,7 @@ module Pod
 
       it 'runs with correct parameters' do
         lambda { run_command('search', 'JSON') }.should.not.raise
-        lambda { run_command('search', 'JSON', '--full') }.should.not.raise
+        lambda { run_command('search', 'JSON', '--simple') }.should.not.raise
       end
 
       it 'complains for wrong parameters' do
@@ -27,17 +27,17 @@ module Pod
       end
 
       it 'searches for a pod with name matching the given query ignoring case' do
-        output = run_command('search', 'json')
+        output = run_command('search', 'json', '--simple')
         output.should.include? 'JSONKit'
       end
 
       it 'searches for a pod with name, summary, or description matching the given query ignoring case' do
-        output = run_command('search', 'engelhart', '--full')
+        output = run_command('search', 'engelhart')
         output.should.include? 'JSONKit'
       end
 
       it 'searches for a pod with name, summary, or description matching the given multi-word query ignoring case' do
-        output = run_command('search', 'very', 'high', 'performance', '--full')
+        output = run_command('search', 'very', 'high', 'performance')
         output.should.include? 'JSONKit'
       end
 
@@ -55,13 +55,13 @@ module Pod
       end
 
       it 'restricts the search to Pods supported on Watch OS' do
-        output = run_command('search', '', '--watchos')
+        output = run_command('search', 'a', '--watchos')
         output.should.include? 'Realm'
         output.should.not.include? 'BananaLib'
       end
 
       it 'restricts the search to Pods supported on tvOS' do
-        output = run_command('search', '', '--tvos')
+        output = run_command('search', 'n', '--tvos')
         output.should.include? 'monkey'
         output.should.not.include? 'BananaLib'
       end

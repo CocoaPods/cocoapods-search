@@ -4,6 +4,10 @@
 
 ##### Enhancements
 
+* Perform full search as default, add `--simple` option to search only by name.  
+  [Muhammed Yavuz Nuzumlalı](https://github.com/manuyavuz)
+  [#13](https://github.com/CocoaPods/cocoapods-search/issues/13)
+
 * Add support for tvOS and any possible future platforms.  
   [Muhammed Yavuz Nuzumlalı](https://github.com/manuyavuz)
   [#11](https://github.com/CocoaPods/cocoapods-search/issues/11)

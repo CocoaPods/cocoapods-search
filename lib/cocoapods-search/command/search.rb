@@ -4,9 +4,8 @@ module Pod
       self.summary = 'Search for pods.'
 
       self.description = <<-DESC
-        Searches for pods, ignoring case, whose name matches `QUERY`. If the
-        `--full` option is specified, this will also search in the summary and
-        description of the pods.
+        Searches for pods, ignoring case, whose name, summary, description, or authors match `QUERY`. If the
+        `--simple` option is specified, this will only search in the names of the pods.
       DESC
 
       self.arguments = [
@@ -16,7 +15,7 @@ module Pod
       def self.options
         options = [
           ['--regex',   'Interpret the `QUERY` as a regular expression'],
-          ['--full',    'Search by name, summary, description, and authors'],
+          ['--simple',    'Search only by name'],
           ['--stats',   'Show additional stats (like GitHub watchers and forks)'],
           ['--web',     'Searches on cocoapods.org'],
         ]
@@ -28,7 +27,7 @@ module Pod
 
       def initialize(argv)
         @use_regex = argv.flag?('regex')
-        @full_text_search = argv.flag?('full')
+        @simple_search = argv.flag?('simple')
         @stats = argv.flag?('stats')
         @web = argv.flag?('web')
         @platform_filters = Platform.all.map do |platform|
@@ -77,7 +76,7 @@ module Pod
           result << (@use_regex ? q : Regexp.escape(q))
         }.join(' ').strip
 
-        sets = SourcesManager.search_by_name(query_regex, @full_text_search)
+        sets = SourcesManager.search_by_name(query_regex, !@simple_search)
 
         @platform_filters.each do |platform|
           sets.reject! { |set| !set.specification.available_platforms.map(&:name).include?(platform) }

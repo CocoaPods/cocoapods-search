@@ -82,7 +82,7 @@ module Pod
           sets.reject! { |set| !set.specification.available_platforms.map(&:name).include?(platform) }
         end
 
-        sets.each do |set|
+        sets.reverse_each do |set|
           begin
             if @stats
               UI.pod(set, :stats)

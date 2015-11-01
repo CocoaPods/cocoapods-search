@@ -4,6 +4,9 @@
 
 ##### Enhancements
 
+* Print output in reverse order.  
+  [Muhammed Yavuz Nuzumlalı](https://github.com/manuyavuz)
+
 * Perform full search as default, add `--simple` option to search only by name.  
   [Muhammed Yavuz Nuzumlalı](https://github.com/manuyavuz)
   [#13](https://github.com/CocoaPods/cocoapods-search/issues/13)

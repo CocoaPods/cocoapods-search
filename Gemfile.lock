@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/CocoaPods/CocoaPods.git
-  revision: 64bdde9f5a8bb375a28d5a2b79cd668f982532bd
+  revision: b917ffd9e16769c48a7bf748d8d111e6bd015ac8
   branch: master
   specs:
     cocoapods (0.39.0)
@@ -21,7 +21,7 @@ GIT
 
 GIT
   remote: https://github.com/CocoaPods/Core.git
-  revision: ce26e1eb797a6ad1f1d94b0304a50c491bc41237
+  revision: 6f85c4fcff81960c0983616082bc345763a15dc6
   branch: master
   specs:
     cocoapods-core (0.39.0)

@@ -1,7 +1,6 @@
 module Pod
   class Command
     class Search < Command
-      attr_accessor :use_pager
       self.summary = 'Search for pods.'
 
       self.description = <<-DESC
@@ -23,6 +22,7 @@ module Pod
         options += Platform.all.map do |platform|
           ["--#{platform.name.to_s}",     "Restricts the search to Pods supported on #{Platform.string_name(platform.to_sym)}"]
         end
+        options << ['--no-pager',    'Do not pipe search results into a pager']
         options.concat(super.reject { |option, _| option == '--silent' })
       end 
 
@@ -36,7 +36,7 @@ module Pod
         end.compact
         @query = argv.arguments! unless argv.arguments.empty?
         config.silent = false
-        @use_pager = true
+        @use_pager = argv.flag?('pager', true)
         super
       end
 
@@ -84,9 +84,8 @@ module Pod
           sets.reject! { |set| !set.specification.available_platforms.map(&:name).include?(platform) }
         end
 
-        if use_pager
-          extend_ui_puts
-          IO.popen('$PAGER', 'w') do |io|
+        if @use_pager
+          IO.popen(('$PAGER' || 'less -R'), 'w') do |io|
             UI.io_type = io
             print_sets(sets)
           end
@@ -105,26 +104,6 @@ module Pod
             end
           rescue DSLError
             UI.warn "Skipping `#{set.name}` because the podspec contains errors."
-          end
-        end
-      end
-
-      def extend_ui_puts
-        UI.module_eval do
-          class << self
-            attr_accessor :io_type
-          end
-
-          def self.puts(params)
-            begin
-              if io_type
-                io_type.puts(params)
-              else
-                Kernel::puts (params)
-              end
-            rescue
-              exit 1
-            end
           end
         end
       end

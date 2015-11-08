@@ -8,7 +8,6 @@ module Pod
       @test_source = Source.new(fixture('spec-repos/test_repo'))
       Source::Aggregate.any_instance.stubs(:sources).returns([@test_source])
       SourcesManager.updated_search_index = nil
-      Command::Search.any_instance.stubs(:use_pager).returns(false)
     end
 
     describe 'Search' do

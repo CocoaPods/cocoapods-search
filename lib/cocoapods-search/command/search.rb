@@ -85,8 +85,9 @@ module Pod
         end
 
         if @use_pager
-          IO.popen(('$PAGER' || 'less -R'), 'w') do |io|
-            UI.io_type = io
+          IO.popen((ENV['PAGER'] || 'less -R'), 'w') do |io|
+            Signal.trap('INT','IGNORE')
+            UI.output_io = io
             print_sets(sets)
           end
         else

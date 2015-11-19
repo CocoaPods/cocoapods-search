@@ -84,12 +84,8 @@ module Pod
           sets.reject! { |set| !set.specification.available_platforms.map(&:name).include?(platform) }
         end
 
-        if @use_pager
-          IO.popen((ENV['PAGER'] || 'less -R'), 'w') do |io|
-            Signal.trap('INT','IGNORE')
-            UI.output_io = io
-            print_sets(sets)
-          end
+        if(@use_pager)
+          UI.with_pager { print_sets(sets) }
         else
           print_sets(sets)
         end

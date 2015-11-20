@@ -41,9 +41,9 @@ module Pod
         output.should.include? 'JSONKit'
       end
 
-      it 'prints search results in reverse order' do
+      it 'prints search results in order' do
         output = run_command('search', 'lib')
-        output.should.match /JSONKit.*BananaLib/m
+        output.should.match /BananaLib.*JSONKit/m
       end
 
       it 'restricts the search to Pods supported on iOS' do

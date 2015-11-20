@@ -5,7 +5,7 @@ module SpecHelper
     end
 
     def command(*argv)
-      argv << '--no-ansi'
+      argv += ['--no-ansi', '--no-pager']
       Pod::Command.parse(argv)
     end
 

@@ -1,6 +1,6 @@
 # Cocoapods::Search Changelog
 
-## Master
+## 1.0.0.beta.2 (2016-04-14)
 
 ##### Bug Fixes
 

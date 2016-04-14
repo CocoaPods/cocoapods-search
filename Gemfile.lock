@@ -34,7 +34,7 @@ GIT
 PATH
   remote: .
   specs:
-    cocoapods-search (1.0.0.beta.1)
+    cocoapods-search (1.0.0.beta.2)
 
 GEM
   remote: https://rubygems.org/

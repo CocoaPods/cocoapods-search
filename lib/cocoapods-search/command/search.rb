@@ -24,7 +24,7 @@ module Pod
         end
         options << ['--no-pager',    'Do not pipe search results into a pager']
         options.concat(super.reject { |option, _| option == '--silent' })
-      end 
+      end
 
       def initialize(argv)
         @use_regex = argv.flag?('regex')
@@ -50,7 +50,7 @@ module Pod
           rescue RegexpError
             help! 'A valid regular expression is required.'
           end
-        end  
+        end
       end
 
       def run
@@ -60,6 +60,10 @@ module Pod
         else
           local_search
         end
+      end
+
+      def sources_manager
+        defined?(Pod::SourcesManager) ? Pod::SourcesManager : config.sources_manager
       end
 
       def web_search
@@ -78,7 +82,7 @@ module Pod
           result << (@use_regex ? q : Regexp.escape(q))
         }.join(' ').strip
 
-        sets = SourcesManager.search_by_name(query_regex, !@simple_search)
+        sets = sources_manager.search_by_name(query_regex, !@simple_search)
 
         @platform_filters.each do |platform|
           sets.reject! { |set| !set.specification.available_platforms.map(&:name).include?(platform) }

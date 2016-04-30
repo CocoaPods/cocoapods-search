@@ -10,7 +10,7 @@ GIT
       cocoapods-deintegrate (>= 1.0.0.beta.1, < 2.0)
       cocoapods-downloader (>= 1.0.0.beta.2, < 2.0)
       cocoapods-plugins (>= 1.0.0.beta.1, < 2.0)
-      cocoapods-search (>= 1.0.0.beta.1, < 2.0)
+      cocoapods-search (= 1.0.0.rc.1)
       cocoapods-stats (>= 1.0.0.beta.3, < 2.0)
       cocoapods-trunk (>= 1.0.0.beta.2, < 2.0)
       cocoapods-try (>= 1.0.0.beta.3, < 2.0)
@@ -34,7 +34,7 @@ GIT
 PATH
   remote: .
   specs:
-    cocoapods-search (1.0.0.beta.2)
+    cocoapods-search (1.0.0.rc.1)
 
 GEM
   remote: https://rubygems.org/

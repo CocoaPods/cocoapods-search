@@ -1,5 +1,7 @@
 module Pod
   class Command
+    # @CocoaPods 0.0.2
+    #
     class Search < Command
       self.summary = 'Search for pods'
 

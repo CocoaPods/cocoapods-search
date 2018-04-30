@@ -76,7 +76,7 @@ module Pod
         query_parameter = queries.compact.flatten.join(' ')
         url = "https://cocoapods.org/?q=#{CGI.escape(query_parameter).gsub('+', '%20')}"
         UI.puts("Opening #{url}")
-        open!(url)
+        Executable.execute_command(:open, [url])
       end
 
       def local_search

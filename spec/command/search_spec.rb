@@ -102,51 +102,51 @@ module Pod
       extend SpecHelper::TemporaryRepos
 
       it 'searches with invalid regex' do
-        Command::Search.any_instance.expects(:open!).with('https://cocoapods.org/?q=NSAttributedString%2BCCLFormat')
+        Executable.expects(:execute_command).with(:open, ['https://cocoapods.org/?q=NSAttributedString%2BCCLFormat'])
         run_command('search', '--web', 'NSAttributedString+CCLFormat')
       end
 
       it 'should url encode search queries' do
-        Command::Search.any_instance.expects(:open!).with('https://cocoapods.org/?q=NSAttributedString%2BCCLFormat')
+        Executable.expects(:execute_command).with(:open, ['https://cocoapods.org/?q=NSAttributedString%2BCCLFormat'])
         run_command('search', '--web', 'NSAttributedString+CCLFormat')
       end
 
       it 'searches the web via the open! command' do
-        Command::Search.any_instance.expects(:open!).with('https://cocoapods.org/?q=bananalib')
+        Executable.expects(:execute_command).with(:open, ['https://cocoapods.org/?q=bananalib'])
         run_command('search', '--web', 'bananalib')
       end
 
       it 'includes option --osx correctly' do
-        Command::Search.any_instance.expects(:open!).with('https://cocoapods.org/?q=on%3Aosx%20bananalib')
+        Executable.expects(:execute_command).with(:open, ['https://cocoapods.org/?q=on%3Aosx%20bananalib'])
         run_command('search', '--web', '--osx', 'bananalib')
       end
 
       it 'includes option --ios correctly' do
-        Command::Search.any_instance.expects(:open!).with('https://cocoapods.org/?q=on%3Aios%20bananalib')
+        Executable.expects(:execute_command).with(:open, ['https://cocoapods.org/?q=on%3Aios%20bananalib'])
         run_command('search', '--web', '--ios', 'bananalib')
       end
 
       it 'includes option --watchos correctly' do
-        Command::Search.any_instance.expects(:open!).with('https://cocoapods.org/?q=on%3Awatchos%20bananalib')
+        Executable.expects(:execute_command).with(:open, ['https://cocoapods.org/?q=on%3Awatchos%20bananalib'])
         run_command('search', '--web', '--watchos', 'bananalib')
       end
 
       it 'includes option --tvos correctly' do
-        Command::Search.any_instance.expects(:open!).with('https://cocoapods.org/?q=on%3Atvos%20bananalib')
+        Executable.expects(:execute_command).with(:open, ['https://cocoapods.org/?q=on%3Atvos%20bananalib'])
         run_command('search', '--web', '--tvos', 'bananalib')
       end
 
       it 'includes any new platform option correctly' do
         Platform.stubs(:all).returns([Platform.ios, Platform.tvos, Platform.new('whateveros')])
-        Command::Search.any_instance.expects(:open!).with('https://cocoapods.org/?q=on%3Awhateveros%20bananalib')
+        Executable.expects(:execute_command).with(:open, ['https://cocoapods.org/?q=on%3Awhateveros%20bananalib'])
         run_command('search', '--web', '--whateveros', 'bananalib')
       end
 
       it 'does not matter in which order the ios/osx options are set' do
-        Command::Search.any_instance.expects(:open!).with('https://cocoapods.org/?q=on%3Aios%20on%3Aosx%20bananalib')
+        Executable.expects(:execute_command).with(:open, ['https://cocoapods.org/?q=on%3Aios%20on%3Aosx%20bananalib'])
         run_command('search', '--web', '--ios', '--osx', 'bananalib')
 
-        Command::Search.any_instance.expects(:open!).with('https://cocoapods.org/?q=on%3Aios%20on%3Aosx%20bananalib')
+        Executable.expects(:execute_command).with(:open, ['https://cocoapods.org/?q=on%3Aios%20on%3Aosx%20bananalib'])
         run_command('search', '--web', '--osx', '--ios', 'bananalib')
       end
     end

@@ -1,6 +1,6 @@
 # Cocoapods::Search Changelog
 
-## Master
+## 1.0.1 (2021-08-13)
 
 ##### Enhancements
 

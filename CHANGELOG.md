@@ -13,7 +13,6 @@
   [#25](https://github.com/CocoaPods/cocoapods-search/issues/25)
 
 
-
 ## 1.0.0 (2016-05-10)
 
 ##### Enhancements

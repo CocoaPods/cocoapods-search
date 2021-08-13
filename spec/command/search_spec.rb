@@ -4,12 +4,6 @@ module Pod
   describe Command::Search do
     extend SpecHelper::TemporaryRepos
 
-    before do
-      @test_source = Source.new(fixture('spec-repos/test_repo'))
-      Source::Aggregate.any_instance.stubs(:sources).returns([@test_source])
-      Config.instance.sources_manager.updated_search_index = nil
-    end
-
     describe 'Search' do
       it 'registers it self' do
         Command.parse(%w{ search }).should.be.instance_of Command::Search
